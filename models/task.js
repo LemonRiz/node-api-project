@@ -22,7 +22,7 @@ export const Student = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    description: {
+    created_by: {
       type: Sequelize.STRING,
       allowNull: false,
     },
