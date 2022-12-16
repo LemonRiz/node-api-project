@@ -21,6 +21,9 @@ export const getTasks = async (req, res) => {
   if (chore) {
     query.where.chore = { [Op.like]: `%${chore}%`}
   }
+  if (created_by) {
+    query.where.created_by = { [Op.like]: `%${created_by}%`}
+  }
 
   try {
     const tasks = await Task.findAll(query);
