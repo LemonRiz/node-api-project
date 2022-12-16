@@ -1,7 +1,5 @@
 import Router from "express";
 
-import { readFileSync, writeFileSync } from "fs";
-
 import {
   getTasks,
   addTasks,

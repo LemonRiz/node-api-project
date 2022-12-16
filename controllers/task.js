@@ -1,4 +1,3 @@
-import { readFileSync, writeFileSync } from "fs";
 import { Task } from "../models/task.js";
 import { Op } from "sequelize";
 
@@ -15,14 +14,13 @@ export const addTasks = async (req, res) => {
 };
 
 export const getTasks = async (req, res) => {
-  //COME BACK TO USING QUERY
   const { chore, created_by } = req.query;
   const query = { where: {} };
   if (chore) {
-    query.where.chore = { [Op.like]: `%${chore}%`}
+    query.where.chore = { [Op.like]: `%${chore}%` };
   }
   if (created_by) {
-    query.where.created_by = { [Op.like]: `%${created_by}%`}
+    query.where.created_by = { [Op.like]: `%${created_by}%` };
   }
 
   try {
