@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { sequelize } from "../db/index.js";
 
-export const Student = sequelize.define(
+export const Task = sequelize.define(
   //
   "task",
   {
@@ -14,7 +14,7 @@ export const Student = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    task: {
+    chore: {
       type: Sequelize.STRING,
       allowNull: false,
     },
