@@ -13,26 +13,7 @@ export const addTasks = async (req, res) => {
   }
 };
 
-export const getTasks = async (req, res) => {
-  const { chore, created_by } = req.query;
-  const query = { where: {} };
-  if (chore) {
-    query.where.chore = { [Op.like]: `%${chore}%` };
-  }
-  if (created_by) {
-    query.where.created_by = { [Op.like]: `%${created_by}%` };
-  }
-
-  try {
-    const tasks = await Task.findAll(query);
-    res.status(200).send(tasks);
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
-};
-
 export const singleTask = async (req, res) => {
-  //
   const id = parseInt(req.params.id);
   try {
     const task = await Task.findByPk(id);
@@ -41,6 +22,37 @@ export const singleTask = async (req, res) => {
     } else {
       res.status(200).send(task);
     }
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+};
+
+export const getTasks = async (req, res) => {
+  const { chore, created_by, priority, id } = req.query;
+  const query = {
+    where: {},
+    order: [],
+  };
+  if (chore) {
+    query.where.chore = { [Op.like]: `%${chore}%` };
+  }
+  if (created_by) {
+    query.where.created_by = { [Op.like]: `%${created_by}%` };
+  }
+  // if (id) {
+  //   query.where.id = { [Op.eq]: `${id}` };
+  // }
+  if (priority == "asc") {
+    query.order[0] = ["priority", "ASC"];
+  } else if (priority == "desc") {
+    query.order[0] = ["priority", "DESC"];
+  } else if (priority) {
+    query.where.priority = { [Op.eq]: priority };
+  }
+
+  try {
+    const tasks = await Task.findAll(query);
+    res.status(200).send(tasks);
   } catch (error) {
     res.status(404).send(error.message);
   }
