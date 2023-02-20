@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import { sequelize } from "../db/index.js";
 
+
 export const Task = sequelize.define(
   //
   "task",
