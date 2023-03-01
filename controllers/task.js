@@ -1,7 +1,6 @@
 import { Task } from "../models/task.js";
 import { Op } from "sequelize";
 
-
 export const addTasks = async (req, res) => {
   try {
     // TRY AND CREATE A TASK
