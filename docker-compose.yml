@@ -3,15 +3,18 @@ version: "3.4"
 services:
   mysqldb:
     container_name: database
+    image: mysql:8
     build:
       context: .
+      dockerfile: ./Dockerfile
     environment:
-      MYSQL_USER: "root"
       MYSQL_ROOT_PASSWORD: "password"
     ports:
       - 8080:8080
     expose:
       - 8080
+    networks:
+      - docker-nodesql
 
   apiproject:
     container_name: api-project
@@ -20,6 +23,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
-    depends_on:
-      - mysqldb:
-          - condition: service_healthy
+    networks:
+      - docker-nodesql
+
+networks:
+  docker-nodesql:
